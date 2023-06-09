@@ -1,0 +1,948 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище LOLPROJECTModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appeal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Tema" Type="nvarchar(max)" />
+          <Property Name="Opisanie" Type="nvarchar(max)" />
+          <Property Name="Status" Type="nvarchar(max)" />
+          <Property Name="User_login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Admin_Login" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Otvet" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="BaseScales">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="NameHero" Type="nvarchar" MaxLength="50" />
+          <Property Name="Health" Type="float" />
+          <Property Name="Armor" Type="float" />
+          <Property Name="Mana" Type="float" />
+          <Property Name="AD" Type="float" />
+          <Property Name="ResistMagic" Type="float" />
+          <Property Name="Crit" Type="float" />
+          <Property Name="MoveSpeed" Type="float" />
+          <Property Name="Speed_Attack" Type="float" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Heroes">
+          <Key>
+            <PropertyRef Name="NameHero" />
+          </Key>
+          <Property Name="NameHero" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ImageHero" Type="varbinary(max)" />
+          <Property Name="ImageHeroIcon" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ImageItem" Type="varbinary(max)" />
+          <Property Name="AD" Type="int" />
+          <Property Name="Crit" Type="int" />
+          <Property Name="AP" Type="int" />
+          <Property Name="Attack_speed" Type="int" />
+          <Property Name="Movement" Type="int" />
+          <Property Name="Armor" Type="int" />
+          <Property Name="HP" Type="int" />
+          <Property Name="Modificators" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Items_Difference">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id_Item" Type="int" />
+          <Property Name="Id_Diff" Type="int" />
+        </EntityType>
+        <EntityType Name="ItemsDifferents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ItemsDiff" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Key_skill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="NameSkill" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="KeySkill" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Keys">
+          <Key>
+            <PropertyRef Name="IdKeys" />
+          </Key>
+          <Property Name="IdKeys" Type="int" Nullable="false" />
+          <Property Name="Key_skill" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Level_Skill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="NameSkill" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LevelSkill" Type="int" Nullable="false" />
+          <Property Name="Damageskills" Type="int" />
+          <Property Name="Modificatorsskills" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Levels">
+          <Key>
+            <PropertyRef Name="Level_Skill" />
+          </Key>
+          <Property Name="Level_Skill" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Levels_Hero">
+          <Key>
+            <PropertyRef Name="Number_level" />
+          </Key>
+          <Property Name="Number_level" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Polzovatel">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="IdRole" Type="int" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Role" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Scales">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="NameHero" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Damage" Type="float" />
+          <Property Name="Armor" Type="float" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Health" Type="float" />
+          <Property Name="Mana" Type="float" />
+          <Property Name="ResistMagic" Type="float" />
+        </EntityType>
+        <EntityType Name="Skill_Hero">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Nameskill" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NameHero" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="NameSkills" />
+          </Key>
+          <Property Name="NameSkills" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Opisanie" Type="nvarchar(max)" />
+          <Property Name="ImageSkill" Type="varbinary(max)" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_BaseScales_Heroes">
+          <End Role="Heroes" Type="Self.Heroes" Multiplicity="0..1" />
+          <End Role="BaseScales" Type="Self.BaseScales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Heroes">
+              <PropertyRef Name="NameHero" />
+            </Principal>
+            <Dependent Role="BaseScales">
+              <PropertyRef Name="NameHero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Difference_Items">
+          <End Role="Items" Type="Self.Items" Multiplicity="0..1" />
+          <End Role="Items_Difference" Type="Self.Items_Difference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Items_Difference">
+              <PropertyRef Name="Id_Item" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Difference_ItemsDifferents">
+          <End Role="ItemsDifferents" Type="Self.ItemsDifferents" Multiplicity="0..1" />
+          <End Role="Items_Difference" Type="Self.Items_Difference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemsDifferents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Items_Difference">
+              <PropertyRef Name="Id_Diff" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Key_skill_Keys">
+          <End Role="Keys" Type="Self.Keys" Multiplicity="1" />
+          <End Role="Key_skill" Type="Self.Key_skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keys">
+              <PropertyRef Name="IdKeys" />
+            </Principal>
+            <Dependent Role="Key_skill">
+              <PropertyRef Name="KeySkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Key_skill_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="Key_skill" Type="Self.Key_skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="NameSkills" />
+            </Principal>
+            <Dependent Role="Key_skill">
+              <PropertyRef Name="NameSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level_Skill_Levels">
+          <End Role="Levels" Type="Self.Levels" Multiplicity="1" />
+          <End Role="Level_Skill" Type="Self.Level_Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Levels">
+              <PropertyRef Name="Level_Skill" />
+            </Principal>
+            <Dependent Role="Level_Skill">
+              <PropertyRef Name="LevelSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level_Skill_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="Level_Skill" Type="Self.Level_Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="NameSkills" />
+            </Principal>
+            <Dependent Role="Level_Skill">
+              <PropertyRef Name="NameSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Polzovatel_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Polzovatel" Type="Self.Polzovatel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Polzovatel">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Scales_Heroes">
+          <End Role="Heroes" Type="Self.Heroes" Multiplicity="1" />
+          <End Role="Scales" Type="Self.Scales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Heroes">
+              <PropertyRef Name="NameHero" />
+            </Principal>
+            <Dependent Role="Scales">
+              <PropertyRef Name="NameHero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Skill_Hero_Heroes">
+          <End Role="Heroes" Type="Self.Heroes" Multiplicity="1" />
+          <End Role="Skill_Hero" Type="Self.Skill_Hero" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Heroes">
+              <PropertyRef Name="NameHero" />
+            </Principal>
+            <Dependent Role="Skill_Hero">
+              <PropertyRef Name="NameHero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Skill_Hero_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="Skill_Hero" Type="Self.Skill_Hero" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="NameSkills" />
+            </Principal>
+            <Dependent Role="Skill_Hero">
+              <PropertyRef Name="Nameskill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище LOLPROJECTModelContainer">
+          <EntitySet Name="Appeal" EntityType="Self.Appeal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BaseScales" EntityType="Self.BaseScales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Heroes" EntityType="Self.Heroes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items_Difference" EntityType="Self.Items_Difference" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemsDifferents" EntityType="Self.ItemsDifferents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Key_skill" EntityType="Self.Key_skill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Keys" EntityType="Self.Keys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Level_Skill" EntityType="Self.Level_Skill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Levels" EntityType="Self.Levels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Levels_Hero" EntityType="Self.Levels_Hero" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Polzovatel" EntityType="Self.Polzovatel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Scales" EntityType="Self.Scales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skill_Hero" EntityType="Self.Skill_Hero" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BaseScales_Heroes" Association="Self.FK_BaseScales_Heroes">
+            <End Role="Heroes" EntitySet="Heroes" />
+            <End Role="BaseScales" EntitySet="BaseScales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Difference_Items" Association="Self.FK_Items_Difference_Items">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Items_Difference" EntitySet="Items_Difference" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Difference_ItemsDifferents" Association="Self.FK_Items_Difference_ItemsDifferents">
+            <End Role="ItemsDifferents" EntitySet="ItemsDifferents" />
+            <End Role="Items_Difference" EntitySet="Items_Difference" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Key_skill_Keys" Association="Self.FK_Key_skill_Keys">
+            <End Role="Keys" EntitySet="Keys" />
+            <End Role="Key_skill" EntitySet="Key_skill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Key_skill_Skills" Association="Self.FK_Key_skill_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="Key_skill" EntitySet="Key_skill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level_Skill_Levels" Association="Self.FK_Level_Skill_Levels">
+            <End Role="Levels" EntitySet="Levels" />
+            <End Role="Level_Skill" EntitySet="Level_Skill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level_Skill_Skills" Association="Self.FK_Level_Skill_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="Level_Skill" EntitySet="Level_Skill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Polzovatel_Roles" Association="Self.FK_Polzovatel_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Polzovatel" EntitySet="Polzovatel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Scales_Heroes" Association="Self.FK_Scales_Heroes">
+            <End Role="Heroes" EntitySet="Heroes" />
+            <End Role="Scales" EntitySet="Scales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Skill_Hero_Heroes" Association="Self.FK_Skill_Hero_Heroes">
+            <End Role="Heroes" EntitySet="Heroes" />
+            <End Role="Skill_Hero" EntitySet="Skill_Hero" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Skill_Hero_Skills" Association="Self.FK_Skill_Hero_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="Skill_Hero" EntitySet="Skill_Hero" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LOLPROJECTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appeal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Tema" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Opisanie" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="User_login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Admin_Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Otvet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BaseScales">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="NameHero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Health" Type="Double" />
+          <Property Name="Armor" Type="Double" />
+          <Property Name="Mana" Type="Double" />
+          <Property Name="AD" Type="Double" />
+          <Property Name="ResistMagic" Type="Double" />
+          <Property Name="Crit" Type="Double" />
+          <Property Name="MoveSpeed" Type="Double" />
+          <Property Name="Speed_Attack" Type="Double" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Heroes" Relationship="Self.FK_BaseScales_Heroes" FromRole="BaseScales" ToRole="Heroes" />
+        </EntityType>
+        <EntityType Name="Heroes">
+          <Key>
+            <PropertyRef Name="NameHero" />
+          </Key>
+          <Property Name="NameHero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageHero" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageHeroIcon" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="BaseScales" Relationship="Self.FK_BaseScales_Heroes" FromRole="Heroes" ToRole="BaseScales" />
+          <NavigationProperty Name="Scales" Relationship="Self.FK_Scales_Heroes" FromRole="Heroes" ToRole="Scales" />
+          <NavigationProperty Name="Skill_Hero" Relationship="Self.FK_Skill_Hero_Heroes" FromRole="Heroes" ToRole="Skill_Hero" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageItem" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="AD" Type="Int32" />
+          <Property Name="Crit" Type="Int32" />
+          <Property Name="AP" Type="Int32" />
+          <Property Name="Attack_speed" Type="Int32" />
+          <Property Name="Movement" Type="Int32" />
+          <Property Name="Armor" Type="Int32" />
+          <Property Name="HP" Type="Int32" />
+          <Property Name="Modificators" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Items_Difference" Relationship="Self.FK_Items_Difference_Items" FromRole="Items" ToRole="Items_Difference" />
+        </EntityType>
+        <EntityType Name="Items_Difference">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id_Item" Type="Int32" />
+          <Property Name="Id_Diff" Type="Int32" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Items_Difference_Items" FromRole="Items_Difference" ToRole="Items" />
+          <NavigationProperty Name="ItemsDifferents" Relationship="Self.FK_Items_Difference_ItemsDifferents" FromRole="Items_Difference" ToRole="ItemsDifferents" />
+        </EntityType>
+        <EntityType Name="ItemsDifferents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ItemsDiff" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Items_Difference" Relationship="Self.FK_Items_Difference_ItemsDifferents" FromRole="ItemsDifferents" ToRole="Items_Difference" />
+        </EntityType>
+        <EntityType Name="Key_skill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="NameSkill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KeySkill" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Keys" Relationship="Self.FK_Key_skill_Keys" FromRole="Key_skill" ToRole="Keys" />
+          <NavigationProperty Name="Skills" Relationship="Self.FK_Key_skill_Skills" FromRole="Key_skill" ToRole="Skills" />
+        </EntityType>
+        <EntityType Name="Keys">
+          <Key>
+            <PropertyRef Name="IdKeys" />
+          </Key>
+          <Property Name="IdKeys" Type="Int32" Nullable="false" />
+          <Property Name="Key_skill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Key_skill1" Relationship="Self.FK_Key_skill_Keys" FromRole="Keys" ToRole="Key_skill" />
+        </EntityType>
+        <EntityType Name="Level_Skill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="NameSkill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LevelSkill" Type="Int32" Nullable="false" />
+          <Property Name="Damageskills" Type="Int32" />
+          <Property Name="Modificatorsskills" Type="Int32" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Levels" Relationship="Self.FK_Level_Skill_Levels" FromRole="Level_Skill" ToRole="Levels" />
+          <NavigationProperty Name="Skills" Relationship="Self.FK_Level_Skill_Skills" FromRole="Level_Skill" ToRole="Skills" />
+        </EntityType>
+        <EntityType Name="Levels">
+          <Key>
+            <PropertyRef Name="Level_Skill" />
+          </Key>
+          <Property Name="Level_Skill" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Level_Skill1" Relationship="Self.FK_Level_Skill_Levels" FromRole="Levels" ToRole="Level_Skill" />
+        </EntityType>
+        <EntityType Name="Levels_Hero">
+          <Key>
+            <PropertyRef Name="Number_level" />
+          </Key>
+          <Property Name="Number_level" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Polzovatel">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdRole" Type="Int32" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Polzovatel_Roles" FromRole="Polzovatel" ToRole="Roles" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Polzovatel" Relationship="Self.FK_Polzovatel_Roles" FromRole="Roles" ToRole="Polzovatel" />
+        </EntityType>
+        <EntityType Name="Scales">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="NameHero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Damage" Type="Double" />
+          <Property Name="Armor" Type="Double" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Health" Type="Double" />
+          <Property Name="Mana" Type="Double" />
+          <Property Name="ResistMagic" Type="Double" />
+          <NavigationProperty Name="Heroes" Relationship="Self.FK_Scales_Heroes" FromRole="Scales" ToRole="Heroes" />
+        </EntityType>
+        <EntityType Name="Skill_Hero">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Nameskill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NameHero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Heroes" Relationship="Self.FK_Skill_Hero_Heroes" FromRole="Skill_Hero" ToRole="Heroes" />
+          <NavigationProperty Name="Skills" Relationship="Self.FK_Skill_Hero_Skills" FromRole="Skill_Hero" ToRole="Skills" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="NameSkills" />
+          </Key>
+          <Property Name="NameSkills" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Opisanie" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageSkill" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Key_skill" Relationship="Self.FK_Key_skill_Skills" FromRole="Skills" ToRole="Key_skill" />
+          <NavigationProperty Name="Level_Skill" Relationship="Self.FK_Level_Skill_Skills" FromRole="Skills" ToRole="Level_Skill" />
+          <NavigationProperty Name="Skill_Hero" Relationship="Self.FK_Skill_Hero_Skills" FromRole="Skills" ToRole="Skill_Hero" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_BaseScales_Heroes">
+          <End Role="Heroes" Type="Self.Heroes" Multiplicity="0..1" />
+          <End Role="BaseScales" Type="Self.BaseScales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Heroes">
+              <PropertyRef Name="NameHero" />
+            </Principal>
+            <Dependent Role="BaseScales">
+              <PropertyRef Name="NameHero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Scales_Heroes">
+          <End Role="Heroes" Type="Self.Heroes" Multiplicity="1" />
+          <End Role="Scales" Type="Self.Scales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Heroes">
+              <PropertyRef Name="NameHero" />
+            </Principal>
+            <Dependent Role="Scales">
+              <PropertyRef Name="NameHero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Skill_Hero_Heroes">
+          <End Role="Heroes" Type="Self.Heroes" Multiplicity="1" />
+          <End Role="Skill_Hero" Type="Self.Skill_Hero" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Heroes">
+              <PropertyRef Name="NameHero" />
+            </Principal>
+            <Dependent Role="Skill_Hero">
+              <PropertyRef Name="NameHero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Difference_Items">
+          <End Role="Items" Type="Self.Items" Multiplicity="0..1" />
+          <End Role="Items_Difference" Type="Self.Items_Difference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Items_Difference">
+              <PropertyRef Name="Id_Item" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Difference_ItemsDifferents">
+          <End Role="ItemsDifferents" Type="Self.ItemsDifferents" Multiplicity="0..1" />
+          <End Role="Items_Difference" Type="Self.Items_Difference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemsDifferents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Items_Difference">
+              <PropertyRef Name="Id_Diff" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Key_skill_Keys">
+          <End Role="Keys" Type="Self.Keys" Multiplicity="1" />
+          <End Role="Key_skill" Type="Self.Key_skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keys">
+              <PropertyRef Name="IdKeys" />
+            </Principal>
+            <Dependent Role="Key_skill">
+              <PropertyRef Name="KeySkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Key_skill_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="Key_skill" Type="Self.Key_skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="NameSkills" />
+            </Principal>
+            <Dependent Role="Key_skill">
+              <PropertyRef Name="NameSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level_Skill_Levels">
+          <End Role="Levels" Type="Self.Levels" Multiplicity="1" />
+          <End Role="Level_Skill" Type="Self.Level_Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Levels">
+              <PropertyRef Name="Level_Skill" />
+            </Principal>
+            <Dependent Role="Level_Skill">
+              <PropertyRef Name="LevelSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level_Skill_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="Level_Skill" Type="Self.Level_Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="NameSkills" />
+            </Principal>
+            <Dependent Role="Level_Skill">
+              <PropertyRef Name="NameSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Polzovatel_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Polzovatel" Type="Self.Polzovatel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Polzovatel">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Skill_Hero_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="Skill_Hero" Type="Self.Skill_Hero" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="NameSkills" />
+            </Principal>
+            <Dependent Role="Skill_Hero">
+              <PropertyRef Name="Nameskill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LOLPROJECTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appeal" EntityType="Self.Appeal" />
+          <EntitySet Name="BaseScales" EntityType="Self.BaseScales" />
+          <EntitySet Name="Heroes" EntityType="Self.Heroes" />
+          <EntitySet Name="Items" EntityType="Self.Items" />
+          <EntitySet Name="Items_Difference" EntityType="Self.Items_Difference" />
+          <EntitySet Name="ItemsDifferents" EntityType="Self.ItemsDifferents" />
+          <EntitySet Name="Key_skill" EntityType="Self.Key_skill" />
+          <EntitySet Name="Keys" EntityType="Self.Keys" />
+          <EntitySet Name="Level_Skill" EntityType="Self.Level_Skill" />
+          <EntitySet Name="Levels" EntityType="Self.Levels" />
+          <EntitySet Name="Levels_Hero" EntityType="Self.Levels_Hero" />
+          <EntitySet Name="Polzovatel" EntityType="Self.Polzovatel" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Scales" EntityType="Self.Scales" />
+          <EntitySet Name="Skill_Hero" EntityType="Self.Skill_Hero" />
+          <EntitySet Name="Skills" EntityType="Self.Skills" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_BaseScales_Heroes" Association="Self.FK_BaseScales_Heroes">
+            <End Role="Heroes" EntitySet="Heroes" />
+            <End Role="BaseScales" EntitySet="BaseScales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Scales_Heroes" Association="Self.FK_Scales_Heroes">
+            <End Role="Heroes" EntitySet="Heroes" />
+            <End Role="Scales" EntitySet="Scales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Skill_Hero_Heroes" Association="Self.FK_Skill_Hero_Heroes">
+            <End Role="Heroes" EntitySet="Heroes" />
+            <End Role="Skill_Hero" EntitySet="Skill_Hero" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Difference_Items" Association="Self.FK_Items_Difference_Items">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Items_Difference" EntitySet="Items_Difference" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Difference_ItemsDifferents" Association="Self.FK_Items_Difference_ItemsDifferents">
+            <End Role="ItemsDifferents" EntitySet="ItemsDifferents" />
+            <End Role="Items_Difference" EntitySet="Items_Difference" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Key_skill_Keys" Association="Self.FK_Key_skill_Keys">
+            <End Role="Keys" EntitySet="Keys" />
+            <End Role="Key_skill" EntitySet="Key_skill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Key_skill_Skills" Association="Self.FK_Key_skill_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="Key_skill" EntitySet="Key_skill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level_Skill_Levels" Association="Self.FK_Level_Skill_Levels">
+            <End Role="Levels" EntitySet="Levels" />
+            <End Role="Level_Skill" EntitySet="Level_Skill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level_Skill_Skills" Association="Self.FK_Level_Skill_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="Level_Skill" EntitySet="Level_Skill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Polzovatel_Roles" Association="Self.FK_Polzovatel_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Polzovatel" EntitySet="Polzovatel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Skill_Hero_Skills" Association="Self.FK_Skill_Hero_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="Skill_Hero" EntitySet="Skill_Hero" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище LOLPROJECTModelContainer" CdmEntityContainer="LOLPROJECTEntities">
+          <EntitySetMapping Name="Appeal">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Appeal">
+              <MappingFragment StoreEntitySet="Appeal">
+                <ScalarProperty Name="Tema" ColumnName="Tema" />
+                <ScalarProperty Name="Opisanie" ColumnName="Opisanie" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="User_login" ColumnName="User_login" />
+                <ScalarProperty Name="Admin_Login" ColumnName="Admin_Login" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Otvet" ColumnName="Otvet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BaseScales">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.BaseScales">
+              <MappingFragment StoreEntitySet="BaseScales">
+                <ScalarProperty Name="NameHero" ColumnName="NameHero" />
+                <ScalarProperty Name="Health" ColumnName="Health" />
+                <ScalarProperty Name="Armor" ColumnName="Armor" />
+                <ScalarProperty Name="Mana" ColumnName="Mana" />
+                <ScalarProperty Name="AD" ColumnName="AD" />
+                <ScalarProperty Name="ResistMagic" ColumnName="ResistMagic" />
+                <ScalarProperty Name="Crit" ColumnName="Crit" />
+                <ScalarProperty Name="MoveSpeed" ColumnName="MoveSpeed" />
+                <ScalarProperty Name="Speed_Attack" ColumnName="Speed_Attack" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Heroes">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Heroes">
+              <MappingFragment StoreEntitySet="Heroes">
+                <ScalarProperty Name="NameHero" ColumnName="NameHero" />
+                <ScalarProperty Name="ImageHero" ColumnName="ImageHero" />
+                <ScalarProperty Name="ImageHeroIcon" ColumnName="ImageHeroIcon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Items">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ImageItem" ColumnName="ImageItem" />
+                <ScalarProperty Name="AD" ColumnName="AD" />
+                <ScalarProperty Name="Crit" ColumnName="Crit" />
+                <ScalarProperty Name="AP" ColumnName="AP" />
+                <ScalarProperty Name="Attack_speed" ColumnName="Attack_speed" />
+                <ScalarProperty Name="Movement" ColumnName="Movement" />
+                <ScalarProperty Name="Armor" ColumnName="Armor" />
+                <ScalarProperty Name="HP" ColumnName="HP" />
+                <ScalarProperty Name="Modificators" ColumnName="Modificators" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items_Difference">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Items_Difference">
+              <MappingFragment StoreEntitySet="Items_Difference">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_Item" ColumnName="Id_Item" />
+                <ScalarProperty Name="Id_Diff" ColumnName="Id_Diff" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemsDifferents">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.ItemsDifferents">
+              <MappingFragment StoreEntitySet="ItemsDifferents">
+                <ScalarProperty Name="ItemsDiff" ColumnName="ItemsDiff" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Key_skill">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Key_skill">
+              <MappingFragment StoreEntitySet="Key_skill">
+                <ScalarProperty Name="NameSkill" ColumnName="NameSkill" />
+                <ScalarProperty Name="KeySkill" ColumnName="KeySkill" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keys">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Keys">
+              <MappingFragment StoreEntitySet="Keys">
+                <ScalarProperty Name="IdKeys" ColumnName="IdKeys" />
+                <ScalarProperty Name="Key_skill" ColumnName="Key_skill" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Level_Skill">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Level_Skill">
+              <MappingFragment StoreEntitySet="Level_Skill">
+                <ScalarProperty Name="NameSkill" ColumnName="NameSkill" />
+                <ScalarProperty Name="LevelSkill" ColumnName="LevelSkill" />
+                <ScalarProperty Name="Damageskills" ColumnName="Damageskills" />
+                <ScalarProperty Name="Modificatorsskills" ColumnName="Modificatorsskills" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Levels">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Levels">
+              <MappingFragment StoreEntitySet="Levels">
+                <ScalarProperty Name="Level_Skill" ColumnName="Level_Skill" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Levels_Hero">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Levels_Hero">
+              <MappingFragment StoreEntitySet="Levels_Hero">
+                <ScalarProperty Name="Number_level" ColumnName="Number_level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Polzovatel">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Polzovatel">
+              <MappingFragment StoreEntitySet="Polzovatel">
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Scales">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Scales">
+              <MappingFragment StoreEntitySet="Scales">
+                <ScalarProperty Name="NameHero" ColumnName="NameHero" />
+                <ScalarProperty Name="Damage" ColumnName="Damage" />
+                <ScalarProperty Name="Armor" ColumnName="Armor" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Health" ColumnName="Health" />
+                <ScalarProperty Name="Mana" ColumnName="Mana" />
+                <ScalarProperty Name="ResistMagic" ColumnName="ResistMagic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skill_Hero">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Skill_Hero">
+              <MappingFragment StoreEntitySet="Skill_Hero">
+                <ScalarProperty Name="Nameskill" ColumnName="Nameskill" />
+                <ScalarProperty Name="NameHero" ColumnName="NameHero" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.Skills">
+              <MappingFragment StoreEntitySet="Skills">
+                <ScalarProperty Name="NameSkills" ColumnName="NameSkills" />
+                <ScalarProperty Name="Opisanie" ColumnName="Opisanie" />
+                <ScalarProperty Name="ImageSkill" ColumnName="ImageSkill" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="LOLPROJECTModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

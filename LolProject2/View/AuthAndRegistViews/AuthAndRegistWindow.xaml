@@ -1,0 +1,37 @@
+﻿<Window x:Class="LolProject2.View.AuthAndRegistWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LolProject2.View"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:LolProject2.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="AuthAndRegistWindow" Height="720" Width="800" Background="#373636" Icon="C:\Users\Марат\source\repos\LolProject2\LolProject2\Assets\kisspng-league-of-legends-computer-icons-garena-video-game-legends-5ae22337e24e45.073498801524769591927.png">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="15"/>
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <vm:AuthAndRegistVM/>
+    </Window.DataContext>
+    <Grid>
+        <ScrollViewer>
+            <StackPanel Margin="20">
+                <Button Command="{Binding ShowFirstUserControlCommand}" Width="50" Height="50" Background="#373636" BorderThickness="0">
+                    <Button.Content>
+                        <Image Width="50" Height="50" Source="C:\Users\Марат\source\repos\LolProject2\LolProject2\Assets\kisspng-league-of-legends-computer-icons-garena-video-game-legends-5ae22337e24e45.073498801524769591927.png"></Image>
+                    </Button.Content>
+                </Button>
+            
+            <Border Background="#424242" Margin="10,20" CornerRadius="5">
+                <StackPanel>
+                    <ContentControl Content="{Binding CurrentControl}" />
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

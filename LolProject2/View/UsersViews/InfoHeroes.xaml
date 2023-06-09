@@ -1,0 +1,160 @@
+﻿<Window x:Class="LolProject2.View.InfoHeroes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LolProject2.View"
+        mc:Ignorable="d"
+        xmlns:local1="clr-namespace:LolProject2"
+        xmlns:vm="clr-namespace:LolProject2.ViewModels"
+          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="InfoHeroes" Height="720" Width="900" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:MainVM/>
+    </Window.DataContext>
+    <Window.Resources>
+        <local1:ByteArrayToBitmapImageConverter x:Name="binaryConverter" x:Key="byteToImageConverter"/>
+    </Window.Resources>
+    <Grid Background="#373636">
+        <ScrollViewer>
+            <DockPanel Margin="0,0,0,114" >
+                
+                <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="25,0,0,0" HorizontalAlignment="Center">
+                    <Label FontSize="20">Все о чемпионе -</Label>
+                    <Label FontSize="20" Padding="0,5,0,0" Content="{Binding NameHero}"></Label>
+                </WrapPanel>
+                
+                <WrapPanel DockPanel.Dock="Top"  Margin="0,0,0,1" HorizontalAlignment="Center">
+                    
+                    <Image  MinWidth="401" Width="605" Height="286" StretchDirection="Both" Stretch="UniformToFill" x:Name="ImageHero" Source="{Binding ImageHero, Converter={StaticResource byteToImageConverter}}">
+                        <Image.Clip>
+                            <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0,0,605,286"></RectangleGeometry>
+                        </Image.Clip>
+                    </Image>
+                </WrapPanel>
+                <WrapPanel   DockPanel.Dock="Top" Background="#FF424242" Margin="25" HorizontalAlignment="Center" Orientation="Vertical" MinHeight="200" MinWidth="100">
+                    <StackPanel Background="#FF4B4747" >
+                        <Label  Content="Базовые характеристики"/>
+                    </StackPanel>
+                    <StackPanel Background="#FF4B4747" >
+                       
+                        <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"  materialDesign:HintAssist.Hint="Level" HorizontalAlignment="Center"   Width="200" Foreground="White" SelectedItem="{Binding Level}" Text="{Binding Level}">
+                            <ComboBoxItem>1</ComboBoxItem>
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>5</ComboBoxItem>
+                            <ComboBoxItem>6</ComboBoxItem>
+                            <ComboBoxItem>7</ComboBoxItem>
+                            <ComboBoxItem>8</ComboBoxItem>
+                            <ComboBoxItem>9</ComboBoxItem>
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem>11</ComboBoxItem>
+                            <ComboBoxItem>12</ComboBoxItem>
+                            <ComboBoxItem>13</ComboBoxItem>
+                            <ComboBoxItem>14</ComboBoxItem>
+                            <ComboBoxItem>15</ComboBoxItem>
+                            <ComboBoxItem>16</ComboBoxItem>
+                            <ComboBoxItem>17</ComboBoxItem>
+                            <ComboBoxItem>18</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                    <ItemsControl DockPanel.Dock="Top" ItemsSource="{Binding BaseScales, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel  HorizontalAlignment="Center"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Orientation="Vertical">
+                                
+                                <DockPanel>
+
+                                    <StackPanel DockPanel.Dock="Left">
+                                        <Label Content="Здоровье"/>
+                                        <Label Content="{Binding Health, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Label Content="Броня"/>
+                                        <Label Content="{Binding Armor}"/>
+                                        <Label Content="АД"/>
+                                        <Label Content="{Binding AD, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Label Content="Передвижение"/>
+                                        <Label Content="{Binding MoveSpeed}"/>
+                                    </StackPanel>
+                                    <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
+                                        <Label Content="Мана"/>
+                                        <Label Content="{Binding Mana}"/>
+                                        <Label Content="Резист к магии"/>
+                                        <Label Content="{Binding ResistMagic}"/>
+
+                                        <Label Content="Крит"/>
+                                        <Label Content="{Binding Crit}"/>
+                                        <Label  Content="Скорость атаки"/>
+                                        <Label Content="{Binding Speed_Attack}"/>
+                                    </StackPanel>
+
+
+                                </DockPanel>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                </WrapPanel>
+                
+                <WrapPanel  DockPanel.Dock="Top" Margin="25,0,0,0">
+                    <Label>Способности</Label>
+                </WrapPanel>
+                
+                <Border Margin="25,0,25,0"  DockPanel.Dock="Top" BorderThickness="1" CornerRadius="8,8,8,8" Background="#FF3C0C3C" >
+                    <StackPanel Background="#FF424242">
+                        <ListBox ItemsSource="{Binding Skills}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel  Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate >
+
+                                    <WrapPanel Orientation="Horizontal">
+                                        <Border Margin="5" >
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="BorderThickness" Value="1"/>
+                                                    <Setter Property="BorderBrush" Value="#E56161"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="BorderBrush" Value="Orange"/>
+                                                            <Setter Property="BorderThickness" Value="2"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <Image Source="{Binding ImageSkill}" Height="45" Width="45"  x:Name="FirstSkillImage"></Image>
+                                        </Border>
+                                        <WrapPanel Orientation="Vertical">
+                                            <Label x:Name="FirstSkillName" Content="{Binding NameSkills}"/>
+                                            <Label x:Name="FirstSkillCharact" Content="{Binding Opisanie}"></Label>
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        
+                    </StackPanel>
+                </Border>
+                
+            <!--    <WrapPanel  DockPanel.Dock="Top"  Margin="25,0,25,0" Orientation="Vertical">
+                    <Label>Выбор способностей</Label>
+                    <Image Source="/image_2022-12-11_21-02-39.png" MinHeight="140" MinWidth="681" StretchDirection="DownOnly" Stretch="UniformToFill">
+                        <Image.Clip>
+                            <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0,0,681,140"></RectangleGeometry>
+                        </Image.Clip>
+                    </Image>
+                </WrapPanel> -->
+
+
+            </DockPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

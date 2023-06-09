@@ -1,0 +1,1434 @@
+﻿<Window x:Class="LolProject2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LolProject2" 
+        xmlns:vm="clr-namespace:LolProject2.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        xmlns:uc="clr-namespace:LolProject2.View"
+        Title="MainWindow" Height="550" Width="800" Icon="C:\Users\Марат\source\repos\LolProject2\LolProject2\Assets\kisspng-league-of-legends-computer-icons-garena-video-game-legends-5ae22337e24e45.073498801524769591927.png">
+    <Window.DataContext>
+        <vm:MainListVM/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <local:ByteArrayToBitmapImageConverter x:Name="binaryConverter" x:Key="byteToImageConverter"/>
+        <Style x:Key="Stats">
+            <Setter Property="ItemsControl.Foreground" Value="#BCBCBC"/>
+
+        </Style>
+
+        <Style x:Key="TabControlLabels" TargetType="Label">
+
+            <Setter Property="ItemsControl.Foreground" Value="#BCBCBC"/>
+            <Setter Property="ItemsControl.HorizontalAlignment" Value="Center"/>
+            <Setter Property="ItemsControl.VerticalAlignment" Value="Center"/>
+            <Setter Property="ItemsControl.Background" Value="#FF424242"/>
+            <Setter Property="ItemsControl.BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <Style TargetType="Button" x:Key="Vibor">
+            <Setter Property="Background" Value="#FF424242"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="15"/>
+        </Style>
+        <Style TargetType="Button" x:Key="PngButtons">
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="#FF424242"/>
+            <Setter Property="ToolTip.Background" Value="#FF424242"/>
+           
+        </Style>
+        <Style x:Key="TextBoxVvod">
+            <Setter Property="ItemsControl.HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="ItemsControl.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="ItemsControl.Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="BorderStats">
+            <Setter Property="ItemsControl.BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="ItemsControl.BorderBrush" Value="White"/>
+            <Setter Property="ItemsControl.Margin" Value="10,0"/>
+        </Style>
+        <Style TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid Name="Panel" Background="#FF424242">
+                            <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="10,2" Width="50"/>
+                            <Border BorderThickness="0,0,0,1" Name="BorderGrid"></Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="BorderGrid" Property="BorderBrush" Value="White" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <DockPanel >
+            <StackPanel DockPanel.Dock="Left" Background="#FF4B4747">
+                <Label>Итерации</Label>
+
+                <TextBox Width="100" Height="30" Background="#FF606060"  Margin="15"  Style="{StaticResource TextBoxVvod}" Text="{Binding Iterations}"></TextBox>
+                <Button Width="100" Height="30" HorizontalAlignment="Center" Command="{Binding RasschetCommand}">Simulate</Button>
+                <Label>Stats</Label>
+                <DockPanel>
+                    <StackPanel>
+                        <Border Style="{StaticResource BorderStats}">
+                            <StackPanel Orientation="Horizontal">
+                                <DockPanel MinWidth="100">
+                                    <Label Style="{StaticResource Stats}" >HP</Label>
+                                    <Label HorizontalAlignment="Right" Content="{Binding Health}"></Label>
+                                </DockPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource BorderStats}">
+                            <StackPanel Orientation="Horizontal">
+                                <DockPanel MinWidth="100">
+                                    <Label Style="{StaticResource Stats}">AD</Label>
+                                    <StackPanel>
+                                        <Label HorizontalAlignment="Right" Content="{Binding AD}"></Label>
+                                    </StackPanel>
+                                </DockPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource BorderStats}">
+
+                            <StackPanel Orientation="Horizontal">
+                                <DockPanel Width="100">
+                                    <Label Style="{StaticResource Stats}">Armor</Label>
+                                    <StackPanel HorizontalAlignment="Right">
+                                        <Label Content="{Binding Armor}"></Label>
+                                    </StackPanel>
+                                </DockPanel>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource BorderStats}">
+
+                            <StackPanel Orientation="Horizontal">
+                                <DockPanel Width="100">
+                                    <Label Style="{StaticResource Stats}">ResMag</Label>
+                                    <StackPanel HorizontalAlignment="Right">
+                                        <Label Content="{Binding ResistMagic}"></Label>
+                                    </StackPanel>
+                                </DockPanel>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource BorderStats}">
+                            <StackPanel Orientation="Horizontal">
+                                <DockPanel MinWidth="100">
+                                    <Label Style="{StaticResource Stats}">Speed</Label>
+                                    <StackPanel HorizontalAlignment="Right">
+                                        <Label Content="{Binding MoveSpeed}"></Label>
+                                    </StackPanel>
+                                </DockPanel>
+
+
+
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </DockPanel>
+
+            </StackPanel>
+            <ScrollViewer Background="#373636">
+                
+                <StackPanel Background="#373636">
+                    <StackPanel Height="25"  Background="#FF424242">
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                            <Button BorderThickness="0" Style="{StaticResource PngButtons}" Command="{Binding OpenInfoPlayers}" Cursor="Hand">
+                                <Button.ToolTip>
+                                    <StackPanel Background="#FF424242">
+                                        <Label>Информация о игроках</Label>
+                                    </StackPanel>
+                                </Button.ToolTip>
+                                <Image  Width="25" Height="25" Source="C:\Users\Марат\source\repos\LolProject2\LolProject2\Assets\01-icon-00-logo-icon-opggsquare.png"/>
+                            </Button>
+                            
+                            <Button BorderThickness="0" Style="{StaticResource PngButtons}" Command="{Binding OpenMessage}" Cursor="Hand">
+                                <Button.ToolTip>
+                                    <StackPanel Background="#FF424242">
+                                        <Label>Сообщения</Label>
+                                    </StackPanel>
+                                </Button.ToolTip>
+                                <Image  Width="25" Height="25" Source="C:\Users\Марат\source\repos\LolProject2\LolProject2\Assets\3kont8jsnkkjm5cf18nbi6f6gc.png"/>
+                            </Button>
+                            
+                            <Button Style="{StaticResource PngButtons}" Command="{Binding OpenAppeal}">
+                                <Button.ToolTip>
+                                    <StackPanel Background="#FF424242">
+                                        <Label>Пожаловаться</Label>
+                                    </StackPanel>
+                                </Button.ToolTip>
+                                <Image  Width="25" Height="25" Source="C:\Users\Марат\source\repos\LolProject2\LolProject2\Assets\pngwing.com (1).png"/>
+                            </Button>
+                            <Button Style="{StaticResource PngButtons}" Cursor="Hand" Command="{Binding OpenAuthAndRegist}">
+                                <Button.ToolTip>
+                                    <StackPanel Margin="0" Background="#FF424242">
+                                        <Label>Профиль</Label>
+                                    </StackPanel>
+                                </Button.ToolTip>
+                                <Image Source="C:\Users\Марат\source\repos\LolProject2\LolProject2\Assets\pngaaa.com-2127823.png" Width="25" Height="25"></Image>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <TabControl  BorderThickness="0">
+                        <TabItem>
+                            <TabItem.Header>
+                                <Label Style="{DynamicResource TabControlLabels}">Heroes</Label>
+
+                            </TabItem.Header>
+                            <TabItem.Content>
+                                <ContentControl Content="{Binding CurrentControl}"/>
+                                <!--<StackPanel Background="#373636" >
+                                    <ListBox ItemsSource="{Binding Heroes}" SelectedItem="{Binding SelectedHeroesInfo,Mode=TwoWay}">
+                                        <ListBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+
+                                                <WrapPanel HorizontalAlignment="Center" />
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate >
+
+                                                <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Margin="25" Cursor="Hand">
+                                                    <Border Margin="5" >
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="BorderThickness" Value="1"/>
+                                                                <Setter Property="BorderBrush" Value="#E56161"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="BorderBrush" Value="Orange"/>
+                                                                        <Setter Property="BorderThickness" Value="2"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Image Width="50" Height="50"   Source="{Binding ImageHeroIcon, Converter={StaticResource byteToImageConverter}}"></Image>
+                                                    </Border>
+                                                    <Label Content="{Binding NameHero}"/>
+                                                </StackPanel>
+
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </StackPanel> -->
+
+                            </TabItem.Content>
+
+                        </TabItem>
+                        
+                        <TabItem>
+                            <TabItem.Header>
+                                <Label Style="{StaticResource TabControlLabels}">Items</Label>
+                            </TabItem.Header>
+                            <TabItem.Content>
+                                <StackPanel Background="#373636" >
+                                    <TextBlock Text="Начальные предметы" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+
+                                    <ListBox ItemsSource="{Binding Path=ItemsNach}" SelectedItem="">
+
+                                        <ListBox.ItemsPanel>
+
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel HorizontalAlignment="Center" />
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10" Cursor="Hand">
+
+                                                    <Border  >
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="BorderThickness" Value="1"/>
+                                                                <Setter Property="BorderBrush" Value="#E56161"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="BorderBrush" Value="Orange"/>
+                                                                        <Setter Property="BorderThickness" Value="2"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Image MaxWidth="50" MaxHeight="50" Source="{Binding ImageItem, Converter={StaticResource byteToImageConverter}}"></Image>
+                                                    </Border>
+
+                                                    <StackPanel.ToolTip>
+                                                        <ToolTip   Foreground="White" Background="#FF454542">
+                                                            <WrapPanel Orientation="Horizontal" >
+
+                                                                <WrapPanel Orientation="Vertical" >
+
+                                                                    <TextBlock Foreground="White" Text="{Binding ItemName}"></TextBlock>
+                                                                    <StackPanel Orientation="Horizontal" >
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AD}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="#FFABAB64" Text="+"/>
+                                                                        <TextBlock x:Name="AD" Foreground="#FFABAB64" Text="{Binding AD}"/>
+                                                                        <TextBlock Text=" силы атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Crit}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Orange" Text="+"/>
+                                                                        <TextBlock x:Name="Crit" Foreground="Orange" Text="{Binding Crit}"/>
+                                                                        <TextBlock Foreground="Orange" Text="% критическому удару"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Armor}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Text="+" Foreground="White"/>
+                                                                        <TextBlock x:Name="Armor" Foreground="White" Text="{Binding Armor}"/>
+                                                                        <TextBlock Text=" брони"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Attack_speed}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Red" Text="+"/>
+                                                                        <TextBlock x:Name="Attack_Speed" Foreground="Red" Text="{Binding Attack_speed}"/>
+                                                                        <TextBlock Foreground="Red" Text="% скорости атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="LightBlue" Text="+"/>
+                                                                        <TextBlock x:Name="AP"  Foreground="LightBlue" Text="{Binding AP}"/>
+                                                                        <TextBlock  Foreground="LightBlue" Text=" магии"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding HP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Green" Text="+"/>
+                                                                        <TextBlock x:Name="HP" Foreground="Green" Text="{Binding HP}"/>
+                                                                        <TextBlock Foreground="Green" Text=" здоровью"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Movement}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Yellow" Text="+"/>
+                                                                        <TextBlock x:Name="Movement" Foreground="Yellow" Text="{Binding Movement}"/>
+                                                                        <TextBlock  Foreground="Yellow" Text=" скорости передвижения"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Modificators}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock x:Name="Modificators" Text="{Binding Modificators}"></TextBlock>
+                                                                    </StackPanel>
+
+                                                                </WrapPanel>
+                                                            </WrapPanel>
+                                                        </ToolTip>
+                                                    </StackPanel.ToolTip>
+                                                </StackPanel>
+
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <TextBlock Text="Базовые предметы" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                    <ListBox ItemsSource="{Binding Path=ItemsBase}" SelectedItem="">
+
+                                        <ListBox.ItemsPanel>
+
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel HorizontalAlignment="Center" />
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10" Cursor="Hand">
+
+                                                    <Border  >
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="BorderThickness" Value="1"/>
+                                                                <Setter Property="BorderBrush" Value="#E56161"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="BorderBrush" Value="Orange"/>
+                                                                        <Setter Property="BorderThickness" Value="2"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Image MaxWidth="50" MaxHeight="50" Source="{Binding ImageItem, Converter={StaticResource byteToImageConverter}}"></Image>
+                                                    </Border>
+
+                                                    <StackPanel.ToolTip>
+                                                        <ToolTip   Foreground="White" Background="#FF454542">
+                                                            <WrapPanel Orientation="Horizontal" >
+
+                                                                <WrapPanel Orientation="Vertical" >
+
+                                                                    <TextBlock Foreground="White" Text="{Binding ItemName}"></TextBlock>
+                                                                    <StackPanel Orientation="Horizontal" >
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AD}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="#FFABAB64" Text="+"/>
+                                                                        <TextBlock x:Name="AD" Foreground="#FFABAB64" Text="{Binding AD}"/>
+                                                                        <TextBlock Text=" силы атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Crit}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Orange" Text="+"/>
+                                                                        <TextBlock x:Name="Crit" Foreground="Orange" Text="{Binding Crit}"/>
+                                                                        <TextBlock Foreground="Orange" Text="% критическому удару"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Armor}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Text="+" Foreground="White"/>
+                                                                        <TextBlock x:Name="Armor" Foreground="White" Text="{Binding Armor}"/>
+                                                                        <TextBlock Text=" брони"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Attack_speed}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Red" Text="+"/>
+                                                                        <TextBlock x:Name="Attack_Speed" Foreground="Red" Text="{Binding Attack_speed}"/>
+                                                                        <TextBlock Foreground="Red" Text="% скорости атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="LightBlue" Text="+"/>
+                                                                        <TextBlock x:Name="AP"  Foreground="LightBlue" Text="{Binding AP}"/>
+                                                                        <TextBlock  Foreground="LightBlue" Text=" магии"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding HP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Green" Text="+"/>
+                                                                        <TextBlock x:Name="HP" Foreground="Green" Text="{Binding HP}"/>
+                                                                        <TextBlock Foreground="Green" Text=" здоровью"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Movement}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Yellow" Text="+"/>
+                                                                        <TextBlock x:Name="Movement" Foreground="Yellow" Text="{Binding Movement}"/>
+                                                                        <TextBlock  Foreground="Yellow" Text=" скорости передвижения"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Modificators}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock x:Name="Modificators" Text="{Binding Modificators}"></TextBlock>
+                                                                    </StackPanel>
+
+                                                                </WrapPanel>
+                                                            </WrapPanel>
+                                                        </ToolTip>
+                                                    </StackPanel.ToolTip>
+                                                </StackPanel>
+
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <TextBlock Text="Расходуемые предметы" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                    <ListBox ItemsSource="{Binding Path=ItemsRash}" SelectedItem="">
+
+                                        <ListBox.ItemsPanel>
+
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel HorizontalAlignment="Center" />
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10" Cursor="Hand">
+
+                                                    <Border  >
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="BorderThickness" Value="1"/>
+                                                                <Setter Property="BorderBrush" Value="#E56161"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="BorderBrush" Value="Orange"/>
+                                                                        <Setter Property="BorderThickness" Value="2"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Image MaxWidth="50" MaxHeight="50" Source="{Binding ImageItem, Converter={StaticResource byteToImageConverter}}"></Image>
+                                                    </Border>
+
+                                                    <StackPanel.ToolTip>
+                                                        <ToolTip   Foreground="White" Background="#FF454542">
+                                                            <WrapPanel Orientation="Horizontal" >
+
+                                                                <WrapPanel Orientation="Vertical" >
+
+                                                                    <TextBlock Foreground="White" Text="{Binding ItemName}"></TextBlock>
+                                                                    <StackPanel Orientation="Horizontal" >
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AD}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="#FFABAB64" Text="+"/>
+                                                                        <TextBlock x:Name="AD" Foreground="#FFABAB64" Text="{Binding AD}"/>
+                                                                        <TextBlock Text=" силы атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Crit}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Orange" Text="+"/>
+                                                                        <TextBlock x:Name="Crit" Foreground="Orange" Text="{Binding Crit}"/>
+                                                                        <TextBlock Foreground="Orange" Text="% критическому удару"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Armor}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Text="+" Foreground="White"/>
+                                                                        <TextBlock x:Name="Armor" Foreground="White" Text="{Binding Armor}"/>
+                                                                        <TextBlock Text=" брони"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Attack_speed}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Red" Text="+"/>
+                                                                        <TextBlock x:Name="Attack_Speed" Foreground="Red" Text="{Binding Attack_speed}"/>
+                                                                        <TextBlock Foreground="Red" Text="% скорости атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="LightBlue" Text="+"/>
+                                                                        <TextBlock x:Name="AP"  Foreground="LightBlue" Text="{Binding AP}"/>
+                                                                        <TextBlock  Foreground="LightBlue" Text=" магии"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding HP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Green" Text="+"/>
+                                                                        <TextBlock x:Name="HP" Foreground="Green" Text="{Binding HP}"/>
+                                                                        <TextBlock Foreground="Green" Text=" здоровью"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Movement}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Yellow" Text="+"/>
+                                                                        <TextBlock x:Name="Movement" Foreground="Yellow" Text="{Binding Movement}"/>
+                                                                        <TextBlock  Foreground="Yellow" Text=" скорости передвижения"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Modificators}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock x:Name="Modificators" Text="{Binding Modificators}"></TextBlock>
+                                                                    </StackPanel>
+
+                                                                </WrapPanel>
+                                                            </WrapPanel>
+                                                        </ToolTip>
+                                                    </StackPanel.ToolTip>
+                                                </StackPanel>
+
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <TextBlock Text="Обувь" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                    <ListBox ItemsSource="{Binding Path=ItemsBoots}" SelectedItem="">
+
+                                        <ListBox.ItemsPanel>
+
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel HorizontalAlignment="Center" />
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10" Cursor="Hand">
+
+                                                    <Border  >
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="BorderThickness" Value="1"/>
+                                                                <Setter Property="BorderBrush" Value="#E56161"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="BorderBrush" Value="Orange"/>
+                                                                        <Setter Property="BorderThickness" Value="2"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Image MaxWidth="50" MaxHeight="50" Source="{Binding ImageItem, Converter={StaticResource byteToImageConverter}}"></Image>
+                                                    </Border>
+
+                                                    <StackPanel.ToolTip>
+                                                        <ToolTip   Foreground="White" Background="#FF454542">
+                                                            <WrapPanel Orientation="Horizontal" >
+
+                                                                <WrapPanel Orientation="Vertical" >
+
+                                                                    <TextBlock Foreground="White" Text="{Binding ItemName}"></TextBlock>
+                                                                    <StackPanel Orientation="Horizontal" >
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AD}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="#FFABAB64" Text="+"/>
+                                                                        <TextBlock x:Name="AD" Foreground="#FFABAB64" Text="{Binding AD}"/>
+                                                                        <TextBlock Text=" силы атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Crit}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Orange" Text="+"/>
+                                                                        <TextBlock x:Name="Crit" Foreground="Orange" Text="{Binding Crit}"/>
+                                                                        <TextBlock Foreground="Orange" Text="% критическому удару"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Armor}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Text="+" Foreground="White"/>
+                                                                        <TextBlock x:Name="Armor" Foreground="White" Text="{Binding Armor}"/>
+                                                                        <TextBlock Text=" брони"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Attack_speed}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Red" Text="+"/>
+                                                                        <TextBlock x:Name="Attack_Speed" Foreground="Red" Text="{Binding Attack_speed}"/>
+                                                                        <TextBlock Foreground="Red" Text="% скорости атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="LightBlue" Text="+"/>
+                                                                        <TextBlock x:Name="AP"  Foreground="LightBlue" Text="{Binding AP}"/>
+                                                                        <TextBlock  Foreground="LightBlue" Text=" магии"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding HP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Green" Text="+"/>
+                                                                        <TextBlock x:Name="HP" Foreground="Green" Text="{Binding HP}"/>
+                                                                        <TextBlock Foreground="Green" Text=" здоровью"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Movement}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Yellow" Text="+"/>
+                                                                        <TextBlock x:Name="Movement" Foreground="Yellow" Text="{Binding Movement}"/>
+                                                                        <TextBlock  Foreground="Yellow" Text=" скорости передвижения"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Modificators}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock x:Name="Modificators" Text="{Binding Modificators}"></TextBlock>
+                                                                    </StackPanel>
+
+                                                                </WrapPanel>
+                                                            </WrapPanel>
+                                                        </ToolTip>
+                                                    </StackPanel.ToolTip>
+                                                </StackPanel>
+
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <TextBlock Text="Эпические предметы" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                    <ListBox ItemsSource="{Binding Path=ItemsEpic}" SelectedItem="">
+
+                                        <ListBox.ItemsPanel>
+
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel HorizontalAlignment="Center" />
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10" Cursor="Hand">
+
+                                                    <Border  >
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="BorderThickness" Value="1"/>
+                                                                <Setter Property="BorderBrush" Value="#E56161"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="BorderBrush" Value="Orange"/>
+                                                                        <Setter Property="BorderThickness" Value="2"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Image MaxWidth="50" MaxHeight="50" Source="{Binding ImageItem, Converter={StaticResource byteToImageConverter}}"></Image>
+                                                    </Border>
+
+                                                    <StackPanel.ToolTip>
+                                                        <ToolTip   Foreground="White" Background="#FF454542">
+                                                            <WrapPanel Orientation="Horizontal" >
+
+                                                                <WrapPanel Orientation="Vertical" >
+
+                                                                    <TextBlock Foreground="White" Text="{Binding ItemName}"></TextBlock>
+                                                                    <StackPanel Orientation="Horizontal" >
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AD}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="#FFABAB64" Text="+"/>
+                                                                        <TextBlock x:Name="AD" Foreground="#FFABAB64" Text="{Binding AD}"/>
+                                                                        <TextBlock Text=" силы атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Crit}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Orange" Text="+"/>
+                                                                        <TextBlock x:Name="Crit" Foreground="Orange" Text="{Binding Crit}"/>
+                                                                        <TextBlock Foreground="Orange" Text="% критическому удару"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Armor}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Text="+" Foreground="White"/>
+                                                                        <TextBlock x:Name="Armor" Foreground="White" Text="{Binding Armor}"/>
+                                                                        <TextBlock Text=" брони"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Attack_speed}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Red" Text="+"/>
+                                                                        <TextBlock x:Name="Attack_Speed" Foreground="Red" Text="{Binding Attack_speed}"/>
+                                                                        <TextBlock Foreground="Red" Text="% скорости атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="LightBlue" Text="+"/>
+                                                                        <TextBlock x:Name="AP"  Foreground="LightBlue" Text="{Binding AP}"/>
+                                                                        <TextBlock  Foreground="LightBlue" Text=" магии"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding HP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Green" Text="+"/>
+                                                                        <TextBlock x:Name="HP" Foreground="Green" Text="{Binding HP}"/>
+                                                                        <TextBlock Foreground="Green" Text=" здоровью"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Movement}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Yellow" Text="+"/>
+                                                                        <TextBlock x:Name="Movement" Foreground="Yellow" Text="{Binding Movement}"/>
+                                                                        <TextBlock  Foreground="Yellow" Text=" скорости передвижения"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Modificators}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock x:Name="Modificators" Text="{Binding Modificators}"></TextBlock>
+                                                                    </StackPanel>
+
+                                                                </WrapPanel>
+                                                            </WrapPanel>
+                                                        </ToolTip>
+                                                    </StackPanel.ToolTip>
+                                                </StackPanel>
+
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <TextBlock Text="Легендарные предметы" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                    <ListBox ItemsSource="{Binding Path=ItemsLegend}" SelectedItem="">
+
+                                        <ListBox.ItemsPanel>
+
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel HorizontalAlignment="Center" />
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10" Cursor="Hand">
+
+                                                    <Border  >
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="BorderThickness" Value="1"/>
+                                                                <Setter Property="BorderBrush" Value="#E56161"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="BorderBrush" Value="Orange"/>
+                                                                        <Setter Property="BorderThickness" Value="2"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Image MaxWidth="50" MaxHeight="50" Source="{Binding ImageItem, Converter={StaticResource byteToImageConverter}}"></Image>
+                                                    </Border>
+
+                                                    <StackPanel.ToolTip>
+                                                        <ToolTip   Foreground="White" Background="#FF454542">
+                                                            <WrapPanel Orientation="Horizontal" >
+
+                                                                <WrapPanel Orientation="Vertical" >
+
+                                                                    <TextBlock Foreground="White" Text="{Binding ItemName}"></TextBlock>
+                                                                    <StackPanel Orientation="Horizontal" >
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AD}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="#FFABAB64" Text="+"/>
+                                                                        <TextBlock x:Name="AD" Foreground="#FFABAB64" Text="{Binding AD}"/>
+                                                                        <TextBlock Text=" силы атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Crit}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Orange" Text="+"/>
+                                                                        <TextBlock x:Name="Crit" Foreground="Orange" Text="{Binding Crit}"/>
+                                                                        <TextBlock Foreground="Orange" Text="% критическому удару"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Armor}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Text="+" Foreground="White"/>
+                                                                        <TextBlock x:Name="Armor" Foreground="White" Text="{Binding Armor}"/>
+                                                                        <TextBlock Text=" брони"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Attack_speed}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Red" Text="+"/>
+                                                                        <TextBlock x:Name="Attack_Speed" Foreground="Red" Text="{Binding Attack_speed}"/>
+                                                                        <TextBlock Foreground="Red" Text="% скорости атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="LightBlue" Text="+"/>
+                                                                        <TextBlock x:Name="AP"  Foreground="LightBlue" Text="{Binding AP}"/>
+                                                                        <TextBlock  Foreground="LightBlue" Text=" магии"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding HP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Green" Text="+"/>
+                                                                        <TextBlock x:Name="HP" Foreground="Green" Text="{Binding HP}"/>
+                                                                        <TextBlock Foreground="Green" Text=" здоровью"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Movement}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Yellow" Text="+"/>
+                                                                        <TextBlock x:Name="Movement" Foreground="Yellow" Text="{Binding Movement}"/>
+                                                                        <TextBlock  Foreground="Yellow" Text=" скорости передвижения"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Modificators}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock x:Name="Modificators" Text="{Binding Modificators}"></TextBlock>
+                                                                    </StackPanel>
+
+                                                                </WrapPanel>
+                                                            </WrapPanel>
+                                                        </ToolTip>
+                                                    </StackPanel.ToolTip>
+                                                </StackPanel>
+
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <TextBlock Text="Мифические предметы" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                                    <ListBox ItemsSource="{Binding Path=ItemsMythic}" SelectedItem="">
+
+                                        <ListBox.ItemsPanel>
+
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel HorizontalAlignment="Center" />
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10" Cursor="Hand">
+
+                                                    <Border  >
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="BorderThickness" Value="1"/>
+                                                                <Setter Property="BorderBrush" Value="#E56161"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="BorderBrush" Value="Orange"/>
+                                                                        <Setter Property="BorderThickness" Value="2"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Image MaxWidth="50" MaxHeight="50" Source="{Binding ImageItem, Converter={StaticResource byteToImageConverter}}"></Image>
+                                                    </Border>
+
+                                                    <StackPanel.ToolTip>
+                                                        <ToolTip   Foreground="White" Background="#FF454542">
+                                                            <WrapPanel Orientation="Horizontal" >
+
+                                                                <WrapPanel Orientation="Vertical" >
+
+                                                                    <TextBlock Foreground="White" Text="{Binding ItemName}"></TextBlock>
+                                                                    <StackPanel Orientation="Horizontal" >
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AD}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="#FFABAB64" Text="+"/>
+                                                                        <TextBlock x:Name="AD" Foreground="#FFABAB64" Text="{Binding AD}"/>
+                                                                        <TextBlock Text=" силы атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Crit}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Orange" Text="+"/>
+                                                                        <TextBlock x:Name="Crit" Foreground="Orange" Text="{Binding Crit}"/>
+                                                                        <TextBlock Foreground="Orange" Text="% критическому удару"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Armor}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Text="+" Foreground="White"/>
+                                                                        <TextBlock x:Name="Armor" Foreground="White" Text="{Binding Armor}"/>
+                                                                        <TextBlock Text=" брони"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Attack_speed}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Red" Text="+"/>
+                                                                        <TextBlock x:Name="Attack_Speed" Foreground="Red" Text="{Binding Attack_speed}"/>
+                                                                        <TextBlock Foreground="Red" Text="% скорости атаки"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding AP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="LightBlue" Text="+"/>
+                                                                        <TextBlock x:Name="AP"  Foreground="LightBlue" Text="{Binding AP}"/>
+                                                                        <TextBlock  Foreground="LightBlue" Text=" магии"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding HP}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock Foreground="Green" Text="+"/>
+                                                                        <TextBlock x:Name="HP" Foreground="Green" Text="{Binding HP}"/>
+                                                                        <TextBlock Foreground="Green" Text=" здоровью"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Movement}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock  Foreground="Yellow" Text="+"/>
+                                                                        <TextBlock x:Name="Movement" Foreground="Yellow" Text="{Binding Movement}"/>
+                                                                        <TextBlock  Foreground="Yellow" Text=" скорости передвижения"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <StackPanel.Style>
+                                                                            <Style TargetType="{x:Type StackPanel}">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Modificators}" Value="{x:Null}">
+                                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </StackPanel.Style>
+                                                                        <TextBlock x:Name="Modificators" Text="{Binding Modificators}"></TextBlock>
+                                                                    </StackPanel>
+
+                                                                </WrapPanel>
+                                                            </WrapPanel>
+                                                        </ToolTip>
+                                                    </StackPanel.ToolTip>
+                                                </StackPanel>
+
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </StackPanel>
+
+                            </TabItem.Content>
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <Label Style="{StaticResource TabControlLabels}" HorizontalAlignment="Right" Margin="0,0,3,0">Tactics</Label>
+                            </TabItem.Header>
+                            <TabItem.Content>
+                                <StackPanel>
+                                    <ContentControl Content="{Binding CurrentCunt}">
+                                       
+
+                                    </ContentControl>
+
+
+                                </StackPanel>
+                            </TabItem.Content>
+                        </TabItem>
+                    </TabControl>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Grid>
+</Window>

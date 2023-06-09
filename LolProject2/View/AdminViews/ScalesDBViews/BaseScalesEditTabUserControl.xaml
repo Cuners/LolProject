@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="LolProject2.View.BaseScalesEditTabUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LolProject2.View"
+             mc:Ignorable="d"
+              xmlns:local1="clr-namespace:LolProject2"
+             xmlns:vm="clr-namespace:LolProject2.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:BaseScalesVM/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <local1:ByteArrayToBitmapImageConverter x:Name="binaryConverter" x:Key="byteToImageConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <StackPanel  HorizontalAlignment="Left" Margin="15" DataContext="{Binding BaseScales}">
+               
+                <StackPanel>
+                    <TextBox HorizontalAlignment="Left" Text="{Binding Path=NameHero}" Width="400"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="NameHero" Foreground="White"></TextBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox HorizontalAlignment="Left" Text="{Binding Path=Health}" Width="400"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Health" Foreground="White"></TextBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox HorizontalAlignment="Left" Text="{Binding Path=Armor}" Width="400"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Armor" Foreground="White"></TextBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox HorizontalAlignment="Left" Text="{Binding Path=Mana}" Width="400"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Mana" Foreground="White"></TextBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox HorizontalAlignment="Left" Text="{Binding Path=AD}" Width="400"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="AD" Foreground="White"></TextBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox HorizontalAlignment="Left" Text="{Binding Path=ResistMagic}" Width="400"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="ResistMagic" Foreground="White"></TextBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox HorizontalAlignment="Left" Text="{Binding Path=Crit}" Width="400"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Crit" Foreground="White"></TextBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox HorizontalAlignment="Left" Text="{Binding Path=MoveSpeed}" Width="400"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="MoveSpeed" Foreground="White"></TextBox>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox HorizontalAlignment="Left" Text="{Binding Path=Speed_Attack}" Width="400"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Speed_Attack" Foreground="White"></TextBox>
+                </StackPanel>
+
+            </StackPanel>
+
+            <Button Margin="15" Style="{StaticResource MaterialDesignFlatAccentBgButton}" Command="{Binding ScalesTabVMList.BaseAddEdit}" CommandParameter="{Binding}" Content="Редактировать"  Cursor="Hand" />
+            <Button Margin="15" Style="{StaticResource MaterialDesignFlatAccentBgButton}" Command="{Binding ScalesTabVMList.BaseScaleDelete}" CommandParameter="{Binding}" Content="Удалить"  Cursor="Hand" />
+            <Button Margin="15" Style="{StaticResource MaterialDesignFlatAccentBgButton}" Command="{Binding ScalesTabVMList.BackToTableBaseScale}" Content="Назад"  Cursor="Hand" />
+        </StackPanel>
+    </Grid>
+</UserControl>

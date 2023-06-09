@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="21e89131cbde4c35b274e88c1446cb91" Name="Diagram1">
+        <EntityTypeShape EntityType="LOLPROJECTModel.Appeal" Width="1.5" PointX="5.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.BaseScales" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Heroes" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Items" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Items_Difference" Width="1.5" PointX="8" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.ItemsDifferents" Width="1.5" PointX="5.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Key_skill" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Keys" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Level_Skill" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Levels" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Levels_Hero" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Polzovatel" Width="1.5" PointX="10" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Roles" Width="1.5" PointX="7.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Scales" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Skill_Hero" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.Skills" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="LOLPROJECTModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="LOLPROJECTModel.FK_BaseScales_Heroes" ManuallyRouted="false" />
+        <AssociationConnector Association="LOLPROJECTModel.FK_Scales_Heroes" ManuallyRouted="false" />
+        <AssociationConnector Association="LOLPROJECTModel.FK_Skill_Hero_Heroes" ManuallyRouted="false" />
+        <AssociationConnector Association="LOLPROJECTModel.FK_Items_Difference_Items" ManuallyRouted="false" />
+        <AssociationConnector Association="LOLPROJECTModel.FK_Items_Difference_ItemsDifferents" ManuallyRouted="false" />
+        <AssociationConnector Association="LOLPROJECTModel.FK_Key_skill_Keys" ManuallyRouted="false" />
+        <AssociationConnector Association="LOLPROJECTModel.FK_Key_skill_Skills" ManuallyRouted="false" />
+        <AssociationConnector Association="LOLPROJECTModel.FK_Level_Skill_Levels" ManuallyRouted="false" />
+        <AssociationConnector Association="LOLPROJECTModel.FK_Level_Skill_Skills" ManuallyRouted="false" />
+        <AssociationConnector Association="LOLPROJECTModel.FK_Polzovatel_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="LOLPROJECTModel.FK_Skill_Hero_Skills" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="LolProject2.View.MessageSeeUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LolProject2.View"
+             mc:Ignorable="d" 
+              xmlns:local1="clr-namespace:LolProject2"
+            xmlns:vm="clr-namespace:LolProject2.ViewModels"
+             xmlns:utils="clr-namespace:LolProject2.Utils"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="450" d:DesignWidth="450">
+    <UserControl.DataContext>
+        <vm:MessageVM/>
+    </UserControl.DataContext>
+    <Grid>
+        <StackPanel Background="#373636">
+            <StackPanel Margin="15" DataContext="{Binding Appeal}">
+                <TextBox IsReadOnly="True" HorizontalAlignment="Left" Text="{Binding Admin_Login}" Width="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="AdminLogin" Foreground="White"/>
+                <TextBox IsReadOnly="True" HorizontalAlignment="Left" Text="{Binding Tema}" Width="400" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Tema" Foreground="White"></TextBox>
+                <StackPanel>
+                    <ScrollViewer>
+                        <TextBox IsReadOnly="True" Margin="15" IsEnabled="True" Background="#FF4B4747" Foreground="White" TextWrapping="Wrap"  Width="400" Height="200" Text="{Binding Opisanie}"/>
+                    </ScrollViewer>
+
+                </StackPanel>
+                
+            </StackPanel>
+            <Button Margin="20" Width="200" Height="30" Command="{Binding MessageVMList.BackToMessageAll}">Назад</Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
