@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using LolProject2.Utils;
+using LolProject2;
 namespace LolProject2.ViewModels
 {
     public class AuthAndRegistVM : ViewModel, ICloseWindow
@@ -232,7 +233,8 @@ namespace LolProject2.ViewModels
                         {
                             using (LOLPROJECTEntities lOLPROJECTEntities = new LOLPROJECTEntities())
                             {
-                                Polzovatel polzovatel = new Polzovatel { Login = Login, Password = Password, DateOfBirth= DateOfBirthday,Email=Email,IdRole=2 };
+                                string EncryptPass = EncryptDecryptMD5.Encrypt(Password);
+                                Polzovatel polzovatel = new Polzovatel { Login = Login, Password = EncryptPass, DateOfBirth= DateOfBirthday,Email=Email,IdRole=2 };
                                 lOLPROJECTEntities.Polzovatel.Add(polzovatel);
                                 lOLPROJECTEntities.SaveChanges();
                                 MessageBox.Show("Вы успешно зарегистрировались");
@@ -277,6 +279,7 @@ namespace LolProject2.ViewModels
                 {
                     using (LOLPROJECTEntities lOLPROJECTEntities = new LOLPROJECTEntities())
                     {
+                       
                         if (string.IsNullOrWhiteSpace(Login) || string.IsNullOrWhiteSpace(Password))
                         {
                             MessageBox.Show("Вы не ввели что-то");
@@ -284,16 +287,17 @@ namespace LolProject2.ViewModels
                         }
                         foreach (Polzovatel polzovatel in lOLPROJECTEntities.Polzovatel)
                         {
-                            if (polzovatel.IdRole == 1 && polzovatel.Login==Login && polzovatel.Password==Password)
+                            if (polzovatel.IdRole == 1 && polzovatel.Login==Login && EncryptDecryptMD5.Decrypt(polzovatel.Password)==Password)
                             {
                                 LoginMod.LoginNow = Login;
                                 CurrentControl=_adminUserControl;
                             } 
-                            if(polzovatel.IdRole==2 && polzovatel.Login==Login && polzovatel.Password == Password)
+                            if(polzovatel.IdRole==2 && polzovatel.Login==Login && EncryptDecryptMD5.Decrypt(polzovatel.Password) == Password)
                             {
                                 LoginMod.LoginNow = Login;
                                 MessageBox.Show("Вы успшное авторизовались, теперь вы можете отправлять жалобы");
                                 CloseWindow();
+                                int i = 0;
                             }
 
                         }

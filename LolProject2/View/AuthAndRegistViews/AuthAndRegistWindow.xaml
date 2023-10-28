@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:LolProject2.ViewModels"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="AuthAndRegistWindow" Height="720" Width="800" Background="#373636" Icon="C:\Users\Марат\source\repos\LolProject2\LolProject2\Assets\kisspng-league-of-legends-computer-icons-garena-video-game-legends-5ae22337e24e45.073498801524769591927.png">
+        Title="AuthAndRegistWindow" vm:WindowCloser.EnableWindowClosing="True" Height="720" Width="800" Background="#373636" Icon="C:\Users\Марат\source\repos\LolProject2\LolProject2\Assets\kisspng-league-of-legends-computer-icons-garena-video-game-legends-5ae22337e24e45.073498801524769591927.png">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="15"/>
