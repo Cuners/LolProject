@@ -84,6 +84,7 @@
     <Compile Include="BaseScales.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utils\EncryptDecryptMD5.cs" />
     <Compile Include="ModelsMy\BaseScalesStore.cs" />
     <Compile Include="Heroes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
